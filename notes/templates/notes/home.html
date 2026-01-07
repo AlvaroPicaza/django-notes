@@ -1,0 +1,20 @@
+{%extends "notes/base.html"%}
+{%block content%}
+<main class="container">
+    <section class="new-note">
+        <input type="text" placeholder="Título">
+        <textarea placeholder="Escribe una nota..."></textarea>
+        <button>Guardar</button>
+    </section>
+    <section class="notes-grid">
+        {%for note in notes%}
+
+            <article class="note yellow">
+            <h3>{{note.title}}</h3>
+            <p>{{note.body}}</p>
+            </article> 
+
+        {%endfor%}
+    </section>
+</main>
+{%endblock content%}

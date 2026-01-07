@@ -1,0 +1,23 @@
+{%extends "notes/base.html"%}
+{%block content%}
+<main class="container"></main>
+    <section class="new-note">
+        <input type="text" placeholder="Título">
+        <textarea placeholder="Escribe una nota..."></textarea>
+        <button>Guardar</button>
+    </section>
+    
+    <section class="notes-grid"></section>
+{%for note in notes%}
+        <article class="note yellow">
+        <h3>{{note.title}}</h3>
+        <p>{{note.body}}</p>
+        </article> 
+{%endfor%}
+        <article class="note yellow">
+            <h3>Idea</h3>
+            <p>Crear clon de Google Keep con Django</p>
+        </article>
+    </section>
+    </main>
+{%endblock content%}
