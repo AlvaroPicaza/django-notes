@@ -1,0 +1,28 @@
+{% extends "notes/base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+
+      <div class="content-section">
+        <form method="POST" >
+          {% csrf_token %}
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Accede con tu usuario para compartir notas</legend>
+            {% crispy form %}
+          </fieldset>
+          <div class="form-group mt-2">
+            <button class="btn btn-outline-info w-100" type="submit">
+              Accede
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

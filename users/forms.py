@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 from .models import Profile
@@ -35,6 +35,25 @@ class UserRegisterForm(UserCreationForm):
         self.helper = FormHelper()
         self.helper.form_tag = False 
 
+class UserLoginForm(AuthenticationForm):
+
+    username = forms.CharField(label="Nombre de usuario")
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["username"].widget.attrs.update({
+            "class":"form-control",
+            "placeholder":"Usuario"
+        })
+
+        self.fields["password"].widget.attrs.update({
+            "class":"form-control",
+            "placeholder":"Contraseña"
+        })
+        self.helper = FormHelper()
+        self.helper.form_tag = False 
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(help_text="A valid email address, please.")

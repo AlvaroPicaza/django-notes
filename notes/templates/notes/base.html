@@ -21,14 +21,22 @@
             <h1>📝 Django Notes</h1>
         </a>
     </div>
-    <div class="center">
-        <input type="search" placeholder="Buscar notas...">
-    </div>
-
-    <nav class="right">
-        <a class="nav-link" href="#"">Login</a>
-        <a class="nav-link register" href="{%url 'register' %}">Registro</a>
-    </nav>
+        {%if user.is_authenticated%}
+            <div class="center">
+                <input type="search" placeholder="Buscar notas...">
+            </div>
+            <nav class="right">
+                <a class="nav-link" href="#">{{user.username}}</a>
+                <a class="nav-link register" href="{%url 'logout' %}">Logout</a>
+            </nav>
+        
+        {%else%}
+            <nav class="right">
+                <a class="nav-link" href="{%url 'login'%}"">Login</a>
+                <a class="nav-link register" href="{%url 'register' %}">Registro</a>
+            </nav>
+        {%endif%}
+        
 </header>
     <div class="col-md-8 mx-auto mt-4">
         {% if messages %}
