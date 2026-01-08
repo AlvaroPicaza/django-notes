@@ -201,3 +201,7 @@ body {
 .icon {
     font-size: 1.2rem;
 }
+
+div.padding.element{
+    padding-inline:50px;
+}

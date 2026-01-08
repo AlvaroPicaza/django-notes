@@ -1,21 +1,35 @@
-{%extends "notes/base.html"%}
-{%block content%}
-<!--Para poder incluir codigo en nuestro html usamos el siguiente metodo -->
-    <div class="content-section">
-      <form method="POST">
-        <!-- Pasamos un csrf token al trabajar con SessionAuthentication-->
-        {% csrf_token %}
-        <fieldset class="from-group">
-          <legend class="border-bottom mb-4">Join today</legend>
-          {{form.as_p}}
-        </fieldset>
-        <div class="form-group" style="margin-top: 5px">
-          <button class="btn btn-outline-info" type="submit">Sign up</button>
+{% extends "notes/base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+
+      <div class="content-section">
+        <form method="POST">
+          {% csrf_token %}
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Crea tu usuario para compartir notas</legend>
+            {% crispy form %}
+          </fieldset>
+          <div class="form-group mt-2">
+            <button class="btn btn-outline-info w-100" type="submit">
+              Registrate
+            </button>
+          </div>
+        </form>
+
+        <div class="border-top pt-3 text-center">
+          <small class="text-muted">
+            ¿Ya tienes una cuenta?
+            <a href="#">Accede aquí</a>
+          </small>
         </div>
-      </form>
-      <div class="border-top pt-3">
-        <small class="text-muted">Already have an account? <a class="ml-2" href="#">Log in</a> </small>
       </div>
 
     </div>
-{%endblock content%}
+  </div>
+</div>
+{% endblock %}
