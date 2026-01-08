@@ -26,7 +26,7 @@
                 <input type="search" placeholder="Buscar notas...">
             </div>
             <nav class="right">
-                <a class="nav-link" href="#">{{user.username}}</a>
+                <a class="nav-link" href="{%url 'profile'%}">{{user.username}}</a>
                 <a class="nav-link register" href="{%url 'logout' %}">Logout</a>
             </nav>
         
