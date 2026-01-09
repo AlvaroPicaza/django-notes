@@ -23,24 +23,28 @@ def register(request):
 
 @login_required
 def profile(request):
+
     if request.method == "POST":
-        u_form = UserUpdateForm(request.POST, instance=request.user)
+        u_form = UserUpdateForm(request.POST, 
+                                instance=request.user, 
+                                )
+        
         p_form = ProfileUpdateForm(request.POST, 
                                    request.FILES,
-                                   instance=request.user.profile)
+                                   instance=request.user.profile
+                                   )
 
-        if u_form.is_valid():
+        if u_form.is_valid() and p_form.is_valid():
              username = request.user.username
              u_form.save()
              p_form.save()
              messages.success(request=request,message=f"Se ha modificado el perfil de {username}")
              return redirect('profile')
+    
     else:
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,
-                                    request.FILES,
-                                    request.user.profile
-                                    )
+        u_form = UserUpdateForm(instance=request.user)
+        
+        p_form = ProfileUpdateForm(instance=request.user.profile)
 
         context={
             'u_form':u_form,
@@ -65,7 +69,3 @@ def profile(request):
 class CustomLoginView(LoginView):
     authentication_form  = UserLoginForm
     template_name = "users/login.html"
-
-    def post(self, request, *args, **kwargs):
-        print("POST RECIBIDO")
-        return super().post(request, *args, **kwargs)
