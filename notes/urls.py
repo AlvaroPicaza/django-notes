@@ -22,8 +22,11 @@ from . import views
 #note_resource = NoteResource()
 
 urlpatterns = [
-    path('', views.NoteListView.as_view(), name='notes-home'),
+    path('', views.NoteListCreateView.as_view(), name='notes-home'),
+    path('new/', views.NoteCreateView.as_view(), name='note-create'),
     path('note/<int:pk>/', views.NoteDetailView.as_view(), name='note-detail'),
+    path('note/<int:pk>/update/', views.NoteUpdateView.as_view(), name='note-update'),
+    path('note/<int:pk>/delete/', views.NoteDeleteView.as_view(), name='note-delete'),
     path('new/', views.NoteCreateView.as_view(), name='note-create'),
     #path('api/', include(note_resource.urls)),
     path('about/', views.about, name='notes-about'),

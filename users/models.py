@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from PIL import Image
 
 class Profile(models.Model):
@@ -17,3 +17,6 @@ class Profile(models.Model):
             output_size = (200,200)
             im.thumbnail(size = output_size)
             im.save(self.image.path)
+
+class Group(models.Model):
+    name = "compra"

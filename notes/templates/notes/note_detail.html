@@ -17,8 +17,8 @@
 
         {% if object.author == user %}
         <div class="mt-3">
-          <a class="btn-secondary" href="#">Actualizar</a>
-          <a class="btn btn-sm btn-delete" href="#">Borrar</a>
+          <a class="btn-secondary" href="{%url 'note-update' object.id%}">Actualizar</a>
+          <a class="btn btn-sm btn-delete" href="{%url 'note-delete' object.id%}">Borrar</a>
         </div>
         {% endif %}
       </div>
