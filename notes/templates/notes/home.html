@@ -7,14 +7,14 @@
         <button>Guardar</button>
     </section>
     <section class="notes-grid">
-        {%for note in notes%}
-
-            <article class="note yellow">
-            <h3>{{note.title}}</h3>
-            <p>{{note.body}}</p>
-            </article> 
-
-        {%endfor%}
+        {% for note in notes %}
+        <article class="note yellow">
+        <a href="{% url 'note-detail' note.id %}" class="note-link">
+            <h3>{{ note.title }}</h3>
+            <p>{{ note.body }}</p>
+        </a>
+        </article>
+        {% endfor %}
     </section>
 </main>
 {%endblock content%}

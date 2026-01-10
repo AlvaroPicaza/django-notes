@@ -16,15 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.resources import NoteResource
+#from api.resources import NoteResource
 from . import views
 
-note_resource = NoteResource()
+#note_resource = NoteResource()
 
 urlpatterns = [
-    path('', views.home, name='notes-home'),
-    path('admin/', admin.site.urls),
-    path('api/', include(note_resource.urls)),
+    path('', views.NoteListView.as_view(), name='notes-home'),
+    path('note/<int:pk>/', views.NoteDetailView.as_view(), name='note-detail'),
+    path('new/', views.NoteCreateView.as_view(), name='note-create'),
+    #path('api/', include(note_resource.urls)),
     path('about/', views.about, name='notes-about'),
     
 ]
