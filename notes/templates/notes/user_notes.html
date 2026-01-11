@@ -1,0 +1,28 @@
+{%extends "notes/base.html"%}
+{%block content%}
+<main class="container">
+    <section class="new-note">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.title }}
+            {{ form.body }}
+        <!--<input type="text" placeholder="Título">
+        <textarea placeholder="Escribe una nota..."></textarea>-->
+        <button class="btn btn-outline-info w-100" type="submit">
+              Crear
+            </button>
+        <!--<a class="btn-secondary" href="{%url 'note-create'%}">Crear</a>-->
+        </form>
+    </section>
+    <section class="notes-grid">
+        {% for note in notes %}
+        <article class="note yellow">
+        <a href="{% url 'note-detail' note.id %}" class="note-link">
+            <h3>{{ note.title }}</h3>
+            <p>{{ note.body }}</p>
+        </a>
+        </article>
+        {% endfor %}
+    </section>
+</main>
+{%endblock content%}

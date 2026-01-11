@@ -4,7 +4,6 @@ from .forms import UserRegisterForm,UserLoginForm, UserUpdateForm, ProfileUpdate
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 #from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
 
 
 def register(request):
@@ -69,3 +68,4 @@ def profile(request):
 class CustomLoginView(LoginView):
     authentication_form  = UserLoginForm
     template_name = "users/login.html"
+    

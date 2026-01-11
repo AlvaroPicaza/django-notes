@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Note
 from .forms import NoteForm
+from django.contrib.auth.models import User
 from django.views.generic import ListView,DetailView, CreateView, UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic.edit import FormMixin
@@ -31,6 +32,32 @@ def about(request):
     }
     return render(request,'notes/home.html',context)
 
+#NoteListCreateView, filtra por usuario loggeado
+
+class UserNoteListCreateView(LoginRequiredMixin, FormMixin, ListView):
+    model = Note
+    template_name = 'notes/home.html'
+    context_object_name = 'notes'
+    ordering = ['-created_at']
+    form_class = NoteForm
+    success_url = reverse_lazy('notes-home')
+
+    def post(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        return self.form_invalid(form)
+
+    def form_valid(self,form):
+        form.instance.author = self.request.user
+        form.save()
+        return super().form_valid(form)   
+    
+    def get_queryset(self):
+        return Note.objects.filter(author=User.objects.filter(username=self.request.user.username)[0]).order_by("-created_at")
+
+#NoteListCreateView, NO filtra por usuario loggeado
 
 class NoteListCreateView(LoginRequiredMixin, FormMixin, ListView):
     model = Note
@@ -52,17 +79,21 @@ class NoteListCreateView(LoginRequiredMixin, FormMixin, ListView):
         form.save()
         return super().form_valid(form)   
 
-class NoteListView(ListView):
+"""class NoteListView(ListView):
     model = Note
     template_name = 'notes/home.html'
     context_object_name = 'notes'
-    ordering = ['-created_at']
+    ordering = ['-created_at']"""
 
 
 class NoteDetailView(DetailView):
     model = Note
     template_name = 'notes/note_detail.html'
     context_object_name = 'notes'
+    ordering = ['-created_at']
+    form_class = NoteForm
+    success_url = reverse_lazy('notes-home')
+
 
 
 class NoteCreateView(LoginRequiredMixin,CreateView):
@@ -74,6 +105,7 @@ class NoteCreateView(LoginRequiredMixin,CreateView):
     def form_valid(self,form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
 
 class NoteUpdateView(UpdateView,LoginRequiredMixin,UserPassesTestMixin):
     model = Note
