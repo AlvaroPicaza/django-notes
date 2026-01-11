@@ -6,9 +6,7 @@
             {% csrf_token %}
             {{ form.title }}
             {{ form.body }}
-        <!--<input type="text" placeholder="Título">
-        <textarea placeholder="Escribe una nota..."></textarea>-->
-        <button class="btn btn-outline-info w-100" type="submit">
+        <button class="btn-keep w-100" type="submit">
               Crear
             </button>
         <!--<a class="btn-secondary" href="{%url 'note-create'%}">Crear</a>-->
@@ -19,7 +17,10 @@
         <article class="note yellow">
         <a href="{% url 'note-detail' note.id %}" class="note-link">
             <h3>{{ note.title }}</h3>
+            <li>
+                <input type="checkbox">
             <p>{{ note.body }}</p>
+            </li>
         </a>
         </article>
         {% endfor %}
